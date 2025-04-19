@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Python Tool</title>
+  <title>Perm Generator</title>
 </head>
 <body>
-  <h1>Try my Python Tool</h1>
-  <input id="userInput" placeholder="Type something..." />
-  <button onclick="sendInput()">Submit</button>
-  <p id="output">Output will appear here.</p>
+  <h1>Counterplan Perm Generator</h1>
+
+  <textarea id="cp" rows="6" cols="60" placeholder="Paste your Counterplan text here..."></textarea>
+  <br><br>
+  <label><input type="checkbox" id="tenseChange"> Apply tense change?</label>
+  <br><br>
+  <button onclick="sendInput()">Generate Perm</button>
+
+  <h3>Output:</h3>
+  <pre id="output">Output will appear here.</pre>
 
   <script>
     function sendInput() {
-      const input = document.getElementById("userInput").value;
+      const cp = document.getElementById("cp").value;
+      const tense = document.getElementById("tenseChange").checked;
+
       fetch("https://8d712138-65f9-4f4e-88be-ca4b93fd7ef0-00-1e8exu278n0vu.riker.replit.dev/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ input: input })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          input: cp,
+          tense: tense
+        })
       })
       .then(response => response.json())
       .then(data => {
