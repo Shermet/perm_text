@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Python Tool</title>
+</head>
+<body>
+  <h1>Try my Python Tool</h1>
+  <input id="userInput" placeholder="Type something..." />
+  <button onclick="sendInput()">Submit</button>
+  <p id="output">Output will appear here.</p>
+
+  <script>
+    function sendInput() {
+      const input = document.getElementById("userInput").value;
+      fetch("https://8d712138-65f9-4f4e-88be-ca4b93fd7ef0-00-1e8exu278n0vu.riker.replit.dev/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ input: input })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById("output").innerText = data.output;
+      });
+    }
+  </script>
+</body>
+</html>
